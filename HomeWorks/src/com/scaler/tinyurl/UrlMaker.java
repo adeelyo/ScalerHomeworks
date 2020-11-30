@@ -33,6 +33,10 @@ public class UrlMaker {
         return shortUrlHead + shortHash;
     }
 
+    public static String makeShortUrl(String shortHash, String suffix) {
+        return shortUrlHead + shortHash + suffix;
+    }
+
     public static void createShortUrl(List<Url> urlList) {
         for(Url url: urlList) {
             int hashValue = getHash(url.getUrl());
@@ -43,8 +47,11 @@ public class UrlMaker {
             }else {
                 hashString = String.valueOf(hashValue);
             }
-            url.setShortUrl(makeShortUrl(hashString));
-
+            if(url.getSuffix()!=null) {
+                url.setShortUrl(makeShortUrl(hashString, url.getSuffix()));
+            }else {
+                url.setShortUrl(makeShortUrl(hashString));
+            }
             //values of this map could either be shortened url
             //or just the hash value part
             tinyUrlMap.put(url.getUrl(), url.getShortUrl());

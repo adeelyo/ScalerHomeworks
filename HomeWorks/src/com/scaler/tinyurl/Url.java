@@ -2,14 +2,25 @@ package com.scaler.tinyurl;
 
 public class Url {
     private String url;
+    private String suffix;
     public Url(String url) {
         this.url = url;
         this.shortUrl = "";
+        this.suffix = "";
+    }
+    public Url(String url, String suffix) {
+        this.url = url;
+        this.shortUrl = "";
+        this.suffix = suffix;
     }
     private String shortUrl;
     public String getUrl() {
         return this.url;
     }
+    public String getSuffix() {
+        return this.suffix;
+    }
+
     public String getShortUrl() {
         return this.shortUrl;
     }
