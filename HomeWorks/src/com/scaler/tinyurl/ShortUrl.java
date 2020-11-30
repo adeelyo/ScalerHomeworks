@@ -1,5 +1,7 @@
 package com.scaler.tinyurl;
 
+import java.awt.*;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -7,6 +9,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ShortUrl {
+    /**
+     * Map of short Urls to Urls
+     */
     public static Map<String, String> tinyUrlMap;
     public static void main(String[] args) {
         //Scanner will be used in case of getting input from keyboard
@@ -25,14 +30,33 @@ public class ShortUrl {
         urlList.add(urlFive);
         UrlMaker.createShortUrl(urlList);
         displayShortUrls();
+        openBrowser("https://www.short.com/515262546");
     }
+
+    /**
+     * displays all the map of short urls to urls
+     */
     public static void displayShortUrls() {
-        tinyUrlMap.forEach((url, shortUrl) -> {
+        tinyUrlMap.forEach((shortUrl, url) -> {
             System.out.println("URL :");
             System.out.println(url);
             System.out.println("Shortened URL:");
             System.out.println(shortUrl);
         });
+    }
+
+    /**
+     * Opens default browser with the URL provided
+     * @param shortUrl the url that you want to open
+     */
+    public static void openBrowser(String shortUrl) {
+        try {
+            Desktop desktop = java.awt.Desktop.getDesktop();
+            URI oURL = new URI(tinyUrlMap.get(shortUrl));
+            desktop.browse(oURL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

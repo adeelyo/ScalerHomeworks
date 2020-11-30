@@ -54,7 +54,7 @@ public class UrlMaker {
             }
             //values of this map could either be shortened url
             //or just the hash value part
-            tinyUrlMap.put(url.getUrl(), url.getShortUrl());
+            tinyUrlMap.put(url.getShortUrl(), url.getUrl());
         }
     }
 }

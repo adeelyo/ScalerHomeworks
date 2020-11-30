@@ -1,0 +1,39 @@
+<--description-->
+The System will take input any url and will convert it into a short url:
+
+For creating short url: the system can ignore the part of url till https(http)://www. because it is common for all.
+For the rest of the bit of the url we can create a hash function that creates an equivalent integer representation or the url.
+For the HashFunction to give least number of collisions we can take ascii value of each character and multiply it with a number say HashFactor
+initially hashFactor is 1 and after each character is multiplied by 10.
+For each character we can mod the hashValue with a big number to keep it in short range. (I used Integer.MAX_VALUE) which is the maximum value an integer variable can hold in java
+
+For storage we have created a HashMap<String, String> which is basically map of shortUrls to Urls
+
+After creating a hashValue from above method we can append it at the end of a fixed Url head for ex: https://myDomain.com/
+this will be my domain name. This results in the final tinyUrl
+
+If we get a custom string along with the url, we can keep a check of it and while appending hashValue to domain name, we can append
+"?" and "customString" to the end as well so that now it becomes suffix of shortUrl. And in the Map, shortUrl with the suffix is entered.
+
+For each conversion of url to shortUrl we will write the map to a file or database to not lose the data.
+
+Whenever a hit on the browser with my made tinyUrl is made, the requests comes to us, we read the file/database for the map, and find the value corresponding to the tinyUrl and redirect the browser to that link.
+<--description end-->
+
+How does your system ensure that 2 URLs never map to the same shortened URL?
+: Hash function is always selected in such a way that collision is least. (my hash function is described above)
+
+How will you ensure the system is very low latency?
+: Low latency can be provided by direct key to value pairing of short urls to urls so that as soon as short urls are entered there is only one direct fetch using the key as shorturl
+
+What will happen if the machine storing the URL mapping dies? (Power outage / Hard Disk gone bad)
+: As per current architecture, the system will stop working. It will not find any mapping and will get stuck
+
+How do you make sure your system is consistent? This is to say, if I have shortened a URL, given the shortened URL, my system should always return the original URL no matter when I call your system.
+: To make sure the system is consistent
+1: the data should not be redundant
+2: hash function should be in such a way that it always maps one url to a unique shorturl only.
+
+How do you make sure that your service never goes down? (No outage). You have to assume that your machines will die. How do you make sure your service is unaffected by those incidents (unless all of your machines die at once - Lets assume that never happens)
+: To make sure the server never goes down, we can split the data in between multiple machines and use modified consistent hashing to distribute data and requests.
+
