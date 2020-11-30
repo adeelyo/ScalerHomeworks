@@ -5,12 +5,12 @@ public class Url {
     private String suffix;
     public Url(String url) {
         this.url = url;
-        this.shortUrl = "";
-        this.suffix = "";
+        this.shortUrl = null;
+        this.suffix = null;
     }
     public Url(String url, String suffix) {
         this.url = url;
-        this.shortUrl = "";
+        this.shortUrl = null;
         this.suffix = suffix;
     }
     private String shortUrl;

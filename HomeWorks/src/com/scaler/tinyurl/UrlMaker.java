@@ -34,7 +34,7 @@ public class UrlMaker {
     }
 
     public static String makeShortUrl(String shortHash, String suffix) {
-        return shortUrlHead + shortHash + suffix;
+        return shortUrlHead + shortHash + "?" + suffix;
     }
 
     public static void createShortUrl(List<Url> urlList) {
